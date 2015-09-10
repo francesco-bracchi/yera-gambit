@@ -1,0 +1,28 @@
+-- standard prelude objects
+files "prelude.yera";
+
+-- imported structures
+open YeraCore, YeraDom, MouseEvents;
+
+-- mouse events priority declarations
+files "mouse_events@.yera";
+
+-- default xml namespace applied to all quasiquoted expressions.
+-- in this case html data.
+xmlns = null;
+
+-- happy state
+happy = `<p><img src = "Smiley.png"/>happy</p>;
+
+-- sad state
+sad = `<p><img src = "Smiley Sad.png"/>sad</p>;
+
+-- wrap in a function so the reference to sad_ could be correctly resolved.
+happy_ _ = happy until (lbc over happy) and (lift sad_) null;
+
+
+-- wrap in a function so the refernce to happy_ could be correctly resolved.
+sad_ _ = sad until (lbc over sad) and (lift happy_) null;
+
+-- main expression
+main = happy_ null;

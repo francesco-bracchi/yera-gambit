@@ -1,0 +1,20 @@
+hbar p = body
+    where
+      body = `<div class = "hbar" style = "width:100%; height:100%">@gauge</div>;
+      gauge = `<div class = "hbar_gauge" style = ("height:100%; background-color:blue; width:" + pc)/>;
+      pc = 100 * p + "%";
+    end;
+
+vbar p = body
+    where
+      body = `<table class = "vbar" style = "width:100%; height:100%;line-height:100; vertical-align:bottom">
+              <tr><td valign = "bottom">@gauge</td></tr></table>;
+      gauge = `<div class = "vbar_gauge" style = ("width:100%; background-color:blue; height:" + pc)/>;
+      pc = 100 * p + "%";
+    end;
+
+box w h x = `<div style = ("width:" + w + ";height:" + h)>@x</div>;
+
+fixed_vbar w h p = box w h (vbar p);
+
+fixed_hbar w h p = box w h (vbar p);

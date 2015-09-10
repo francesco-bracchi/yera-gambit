@@ -1,0 +1,55 @@
+DefaultXmlnsI = interface (xmlns);
+
+XmlnsSvgI = interface DefaultXmlnsI U (xmlns_svg);
+XmlnsXhtmlI = interface DefaultXmlnsI U (xmlns_xhtml);
+
+XmlnsXlinkI = interface (xmlns_xlink);
+
+XmlnsSvg = 
+    struct : XmlnsSvgI ->
+    open YeraCore;
+    xmlns_svg = "http://www.w3.org/2000/svg";
+    xmlns = xmlns_svg;
+    end;
+
+XmlnsXhtml = 
+    struct : XmlnsXhtmlI ->
+    open YeraCore;
+    xmlns_xhtml = "http://www.w3.org/1999/xhtml";
+    xmlns = xmlns_xhtml;
+    end;
+
+XmlnsXLink = 
+    struct : XmlnsXlinkI ->
+    open YeraCore;
+    xmlns_xlink = "http://www.w3.org/1999/xlink";
+    end;
+
+YeraHtml = 
+    struct : DefaultXmlnsI ->
+    open YeraCore;
+    xmlns = null;
+    end;
+
+YeraUtilsI = interface 
+(switch, id, if, imp, then, local, step);
+
+YeraUtils =
+    struct : YeraUtilsI ->
+    open YeraCore, YeraDom;
+    files "yera_utils@.yera", "yera_utils.yera";
+end;
+
+MouseEventsI = interface 
+	     (
+	     mouseclick, mouseover, mouseout, mousemove,
+	     lbc, mbc, rbc, enter, exit, move,
+	     over, out, overrel, outrel);
+
+MouseEvents = 
+    struct : MouseEventsI ->
+    open YeraCore, YeraDom;
+    files "yera_utils@.yera", 
+    	  "mouse_events@.yera",
+	  "mouse_events.yera";
+end;

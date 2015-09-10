@@ -1,0 +1,4 @@
+infix right 6 over;
+infix right 6 out;
+infix right 6 overrel;
+infix right 6 outrel;

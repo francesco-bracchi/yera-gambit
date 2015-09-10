@@ -1,0 +1,33 @@
+<?xml version = "1.0" ?>
+<html xmlns = "http://www.w3.org/1999/xhtml">
+  <head>
+    <script type = "text/ecmascript" src = "/json2.js"></script>
+    <script type = "text/ecmascript" src = "/gebo.js"></script>
+    <script type = "text/ecmascript" src = "/compat_dom.js"></script>
+    <script type = "text/ecmascript" src = "/patch.js"></script>
+    <script type = "text/ecmascript" src = "/yera.js"></script>
+    <script type = "text/ecmascript" src = "/yera_core.js"></script>
+    <script type = "text/ecmascript" src = "/yera_dom.js"></script>
+    <script type = "text/ecmascript" src = "/yera_math.js"></script>
+    <script type = "text/ecmascript" src = "/yera_userevent.js"></script>
+    <script type = "text/ecmascript" src = "clock.yera?action=code&amp;type=ecmascript"></script>
+    <script type = "text/ecmascript">
+      window.onload = function () {Yera.connect (SvgClock.bindings.clock, "main")}
+    </script>
+  </head>
+
+<body>
+  <svg xmlns = "http://www.w3.org/2000/svg" 
+       xmlns:xlink = "http://www.w3.org/1999/xlink"
+       version = "1.1"
+       width = "310"
+       height = "210">  
+      
+    <desc>An svg clock gently offered by yera</desc>
+    <text x = "10" y = "20" id = "main">YeraClock</text>
+  </svg>
+</body>
+</html>
+  
+
+    

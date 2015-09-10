@@ -1,0 +1,58 @@
+-- include "yera_utils@.yera";
+
+keypress = event "keypress";
+
+toChar = lift1 toChar_;
+
+cursor k = `<p style = "bgcolor:red">$k</p>;
+
+text = running "" ""
+    where
+      txt x y = `<p class = "text">$x$y</p>;
+      running x y = 
+          let e = txt x y;
+              ins = keypress && 
+                    keypress.which &&
+                    lift2 running 
+                          (pres x + toChar keypress.which)
+                          -- (pres (x + toChar (keypress.which)))
+                          -- (lift0 of cursor of toChar of keypress.which)
+                          (pres y);
+
+              del = keypress && 
+                    length x &&
+                    keypress.keyCode == 8 &&
+                    lift2 running 
+                          (pres (substring x 0 ((length x) - 1)))
+                          (pres y);
+
+              movl = let l = length x in
+                     l && 
+                     keypress &&
+                     keypress.keyCode == 37 &&
+                     lift2 running
+                           (pres (substring x 0 (l - 1)))
+                           (pres ((substring x (l - 1) l) + y));
+
+              movr = let l = length y in
+                     l && 
+                     keypress &&
+                     keypress.keyCode == 39 &&
+                     lift2 running
+                           (pres (x + (y ! 0)))
+                           (pres (substring y 1 l));
+
+              move = keypress &&
+                     keypress.keyCode == 38 &&
+                     lift2 running
+                           (lift0 "")
+                           (pres (x + y));
+
+              movs = keypress &&
+                     keypress.keyCode == 40 &&
+                     lift2 running
+                           (pres (x + y))
+                           (lift0 "");
+                                                            
+          in e until (del || movl || movr || movs || move || ins);
+      end;

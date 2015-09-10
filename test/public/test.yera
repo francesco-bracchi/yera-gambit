@@ -1,0 +1,32 @@
+files "prelude.yera";
+files "gui.yera";
+
+Test = 
+    struct : (main) ->
+    open YeraCore, YeraDom, YeraUtils, YeraMath, YeraHtml, MouseEvents;
+    open YeraUserevent, Icon;
+
+    files "mouse_events@.yera";
+
+    x = floor (local / 1000);
+    y = 20;
+    z = x + y;
+    sum = x + "+" + y + "=" + z;
+ 
+    e1 = icon "MisterWong.png";
+    e2 = icon "Reddit.png";
+    
+    o = {a: 1, b: 2};
+
+    elem = e1 until userevent and const e2;
+
+    counter n e = n until (lbc over e) and (lift counter_) (pres n) (futr e);
+                  
+    counter_ n e = counter (n + 1) e;
+
+    cnt = counter 0 elem;    
+    
+    main = `<div>@elem <br/>@cnt</div>;
+           
+    -- main = `<div>@userevent</div>;
+end;

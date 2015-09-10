@@ -1,0 +1,68 @@
+files "prelude.yera";
+
+IconI = interface (icon);
+
+Icon = 
+    struct : IconI ->
+    open YeraCore, YeraDom, YeraMath, YeraHtml, YeraUtils, MouseEvents;
+    files "mouse_events@.yera", "yera_utils@.yera", "icon.yera";
+end;
+
+ProgressBarI = interface (hbar, vbar, fixed_hbar, fixed_vbar);
+
+ProgressBar = 
+    struct : ProgressBarI ->
+    open YeraCore, YeraDom, YeraMath, YeraHtml;
+    files "progressbar.yera";
+end;
+
+-- TextI = interface (text);
+
+-- Text = struct : TextI ->
+--     open YeraCore, YeraDom, YeraMath, YeraHtml, MouseEvents;
+--     files "mouse_events@.yera", "text.yera";
+-- end;
+
+Test = 
+    struct : (main) ->
+    open YeraCore, YeraDom, Icon, YeraHtml, YeraUtils, MouseEvents;
+    files "mouse_events@.yera";
+         
+    i0 = icon "MisterWong.png";
+
+    i1 = icon "Reddit.png";
+
+    i2 = icon "Blue.png";
+
+    i3 = icon "Yellow.png";
+
+    count n i = n until (lbc over i) && (lift \n i -> count (n + 1) i) (pres n) (futr i);
+
+    counter i = count 0 i;
+
+    c0 = counter i0;
+
+    c1 = counter i1;
+
+    c2 = counter i2;
+
+    c3 = counter i3;
+
+    main = `<center><table bgcolor = "#eeeeee" width = "300">
+           <tr height = "65">
+           <td style = "vertical-align:middle" align = "center">@i0</td>
+           <td style = "vertical-align:middle" align = "center">@i2</td>
+           <td style = "vertical-align:middle" align = "center">@i1</td>
+           <td style = "vertical-align:middle" align = "center">@i3</td>
+           </tr>
+           <tr height = "229">
+           <td colspan = "4" align = "center" style = "color:#070707;font-family:arial">
+           MisterWong counter: @c0 <br/>
+           Reddit counter: @c1 <br/>
+           Blue heart counter: @c2 <br/>
+           Yellow heart counter: @c3<br/>
+           </td>
+           </tr>
+           </table>
+           </center>;
+end;

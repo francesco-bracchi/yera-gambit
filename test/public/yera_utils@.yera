@@ -1,0 +1,9 @@
+-- Some useful functions
+-- @author Francesco Bracchi
+-- @email frbracch@gmail.com
+
+infix right 1 switch;
+infix right 2 then;
+infix right 2 step;
+
+infix left 11 relativeof;

@@ -1,0 +1,103 @@
+files "prelude.yera";
+
+Test = 
+struct : (main) ->
+
+open YeraCore, YeraDom, YeraMath, XmlnsXLink, XmlnsSvg;
+open YeraUtils, MouseEvents;
+
+files "yera_utils@.yera", "mouse_events@.yera";
+
+upto s = st untilI st >= 1 and pres st
+    where
+      st = min 1 s;
+    end;
+
+ram tau = upto (local / tau);
+
+flipFlop t2 _f _g = ff null
+    where
+      f x = {
+        image: (_f x), 
+        state: 1
+      };
+      g x = {
+        image: (_g x), 
+        state: 0
+      };
+
+      p = ram t2;
+
+      fc = f 1;
+      fg = g 1;
+
+      f_up _ = f p untilI p == 1 && (lift ff) (const null);
+      g_up _ = g p untilI p == 1 && (lift gg) (const null);
+
+      ff _ = fc untilI (lbc over fc.image) && (lift f_down) (const null);
+      gg _ = fg untilI (lbc over fg.image) && (lift g_down) (const null);
+
+      f_down _ = f (1 - p) untilI p == 1 && (lift g_up) (const null);
+      g_down _ = g (1 - p) untilI p == 1 && (lift f_up) (const null);
+    end;
+                    
+                    
+
+heart color = 
+    \param -> 
+    let d = 10 - 8 * param;
+        l = 16 * param;
+        rot = (1 - param) * 180;
+        tr = "rotate (" + rot  + " 10 10)"
+    in `<image xlink:href = (color + ".png")
+       x = d 
+       y = d
+       width = l 
+       height = l
+       transform = tr />;
+    
+yellow = heart "Smiley";
+blue = heart "Smiley Sad";
+
+ff t2 = flipFlop t2 yellow blue;
+
+f0 = ff 500;
+f1 = ff 500;
+f2 = ff 500;
+f3 = ff 500;
+-- f4 = ff 500;
+
+-- if a b c = (a && [b] || [c]) ! 0;
+
+subj = if (f0.state) "I " "You ";
+nv = if (f1.state) "" "do not ";
+verb = if (f2.state) "love " "hate ";
+obj =  if (f3.state) "you" "me";
+
+-- ft = "" + f0.state + f1.state + f2.state + f3.state + f4.state;
+ft = subj + nv + verb + obj;
+
+main = `<g transform = "scale (3)"> 
+       @(f0.image)
+       <g transform = "translate(20 0)">@(f1.image)</g>
+       <g transform = "translate(40 0)">@(f2.image)</g>
+       <g transform = "translate(60 0)">@(f3.image)</g>
+       <text x = 1 y = 30 style = "font-size:6pt">@ft</text>
+       </g>;
+
+-- r5 = ram 5000;
+
+-- y1 = yellow 1;
+
+-- b1 = let
+--     l = local / 5000;
+--     lm = min l 1;
+--     p = lm untilI lm == 1 and const 1;
+--     in blue (1 - p);
+
+-- h = (ff 500).image;
+
+
+-- main = `<g transform = "scale(3)">@h</g>;
+
+end;

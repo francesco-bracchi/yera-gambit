@@ -1,0 +1,82 @@
+
+xmlns = "http://www.w3.org/2000/svg";
+
+xmlns_xlink = "http://www.w3.org/1999/xlink";
+
+sec = second time;
+min = minute time;
+hor = hour time;
+
+cx = 53;
+cy = 53;
+sx = 55;
+sy = 55;
+r = 50;
+   
+
+rot = - (time / 100) % 360;
+
+body = 
+    `<g>
+    <circle 
+    cx = cx 
+    cy = cy 
+    r = r 
+    style = "fill:#f0f0f0;stroke:black;stroke-width:1pt"/>
+    <image 
+    x = "13"
+    y = "13"
+    width = "80"
+    height = "80"
+    xlink:href = "yera.png"
+    style = "opacity:0.4"
+    transform = ("rotate (" + rot + ", 53, 53)")/>
+    </g>;
+
+lancet c l t a = 
+    `<g>
+    <line 
+    x1 = cx 
+    y1 = cy 
+    x2 = (round (cx + x))
+    y2 = (round (cy + y))
+    style = ("stroke:" + c + ";stroke-width:" + t + "pt")/>
+    <line 
+    x1 = sx 
+    y1 = sy 
+    x2 = (round (sx + x))
+    y2 = (round (sy + y))
+    style = ("opacity:0.2;stroke:black;strokeWidth:" + t + "pt")/>
+    </g>
+    where
+      x = l * (sin a);
+      y = - l * (cos a); 
+    end;
+
+k0 = 2 * pi / 60;
+k1 = 2 * pi / 12;
+
+l0 = lancet "red" 45 1 (k0 * sec);
+
+l1 = lancet "black" 36 1.2 (k0 * min);
+l2 = lancet "black" 27 3 (k1 * hor);
+
+h0 = floor (hor / 10);
+h1 = hor % 10;
+
+m0 = floor (min / 10);
+m1 = min % 10;
+
+s0 = floor (sec / 10);
+s1 = sec % 10;
+
+text_time = "" + h0 + h1 + ":" + m0 + m1 + ":" + s0 + s1;
+
+txt = 
+    `<text 
+    x = "31" 
+    y = "75" 
+    style = "fill:#FF7777;font-size:6pt"
+    >@text_time</text>;
+
+clock = `<g transform = "scale(1.5)">@body @txt @l2 @l1 @l0</g>; 

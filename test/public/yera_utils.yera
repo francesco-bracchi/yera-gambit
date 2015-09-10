@@ -1,0 +1,18 @@
+-- Some useful functions
+-- @author Francesco Bracchi
+-- @email frbracch@gmail.com
+
+switch i e = i until e && (lift $switch) (pres e) (futr e);
+
+id x = x;
+
+if c l r = (c && [l] || [r]) ! 0;
+
+imp s = s until const null;
+
+local = 0 until (lift \t t0 -> t - t0) (futr time) (pres time);
+
+step i e = i until e && (lift $step) b (futr b);
+
+then b f = b and (lift f) (pres b);
+
