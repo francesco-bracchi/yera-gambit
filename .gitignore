@@ -1,4 +1,5 @@
 src/*.o
-src/*.o1
 src/*.c
+src/*.o1
+src/yera#.scm
 lib
