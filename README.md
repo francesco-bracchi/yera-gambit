@@ -22,7 +22,7 @@ download source from github
     sudo make install;
 
 ## Run
-g
+
 An example can be found in *test/serve.scm* file.
 Currently all the runtime libs have to be loaded separately.
 
