@@ -76,4 +76,6 @@ install: libdir $(INSTALLDIR)
 serve: libdir
 	$(GSI) -:~~$(LIBNAME)=$(LIBDIR) test/serve -e "(main)"
 
-.PHONY: serve
+test: serve
+
+e.PHONY: serve test
